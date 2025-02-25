@@ -46,4 +46,4 @@ def animate_packets(circles, screen):
     for i in out_of_bounds:
         del circles[i]
 
-    pygame.display.flip()  # Update the display
+    pygame.display.flip()

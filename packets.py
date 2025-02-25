@@ -1,11 +1,9 @@
-import random
 import subprocess
-# import concurrent.futures
-# import asyncio
 
 
 def get_packets():
-    script_path = ["/home/gcorreia/projects/nym/launch/monitor.sh"]
+    script_path = [
+        "/home/gcorreia/projects/nym/noise-visualization/monitor.sh"]
     result = subprocess.run(script_path, stdout=subprocess.PIPE)
     output = result.stdout.decode('utf-8')
     numbers = [int(line) for line in output.splitlines()]

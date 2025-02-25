@@ -3,8 +3,6 @@ import packets
 import pygame
 import concurrent.futures
 
-# import time
-
 
 def main():
     circles = []
@@ -15,8 +13,6 @@ def main():
     clock = pygame.time.Clock()
     running = True
 
-    # coroutine = asyncio.to_thread(packets.get_packets())
-    # test = await coroutine
     with concurrent.futures.ProcessPoolExecutor() as executor:
         future = executor.submit(packets.get_packets)
         latest_packets_time = 0
