@@ -1,10 +1,8 @@
 import subprocess
 
 
-def get_packets():
-    script_path = [
-        "/home/gcorreia/projects/nym/noise-visualization/monitor.sh"]
-    result = subprocess.run(script_path, stdout=subprocess.PIPE)
+def get_packets(script_path, interface):
+    result = subprocess.run([script_path, interface], stdout=subprocess.PIPE)
     output = result.stdout.decode('utf-8')
     numbers = [int(line) for line in output.splitlines()]
     return numbers
