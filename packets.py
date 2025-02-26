@@ -22,18 +22,19 @@ def scale_numbers(numbers):
     """
 
     if not numbers:
-        return []  # Return an empty list if the input list is empty
+        return []
 
     min_input = 30
     max_input = 1500
-    min_output = 5
-    max_output = 100
+    min_output = 2
+    max_output = 50
 
     scaled_numbers = []
     for num in numbers:
-        if not (min_input <= num <= max_input):
-            raise ValueError(
-                f"Number {num} is outside the allowed range [50, 5000].")
+        if (num < min_input):
+            num = min_input
+        elif (num > max_input):
+            num = max_input
 
         # Linear scaling formula
         scaled_num = int((num - min_input) / (max_input - min_input) *
