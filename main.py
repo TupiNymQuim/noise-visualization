@@ -18,9 +18,22 @@ def main():
 
     pygame.init()
     screen = pygame.display.set_mode((graphics.WIDTH, graphics.HEIGHT))
-    pygame.display.set_caption("Animated Circles")
+    pygame.display.set_caption("VPN Demo")
     clock = pygame.time.Clock()
     running = True
+
+    try:
+        pc_image = pygame.image.load('pc.png')
+        optimized_pc = pc_image.convert_alpha()
+        scaled_pc = pygame.transform.scale(
+            optimized_pc, (600, 850))
+        pc_rect = scaled_pc.get_rect()
+        pc_rect.center = (72, 200)
+
+    except pygame.error as e:
+        print(f"Error loading images: {e}")
+        pygame.quit()
+        return
 
     with concurrent.futures.ProcessPoolExecutor() as executor:
         future = executor.submit(packets.get_packets, script_path, interface)
@@ -30,7 +43,7 @@ def main():
                 if event.type == pygame.QUIT:
                     running = False
 
-            graphics.animate_packets(circles, screen)
+            graphics.animate_packets(circles, screen, scaled_pc, pc_rect)
 
             if (pygame.time.get_ticks() - latest_packets_time > 1500):
                 packet_sizes = future.result()

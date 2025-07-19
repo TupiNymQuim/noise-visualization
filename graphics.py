@@ -3,15 +3,8 @@ import random
 from collections import deque
 
 # Screen dimensions
-WIDTH = 1200
-HEIGHT = 800
-
-# Door dimensions
-DOOR_WIDTH = 100
-DOOR_HEIGHT = 800
-DOOR_THICKNESS = 20
-DOOR_X = DOOR_THICKNESS // 2
-DOOR_Y = 0
+WIDTH = 900
+HEIGHT = 500
 
 
 # Colors
@@ -31,7 +24,7 @@ def add_packets(packets, circles):
         circles.append([x, y, packet_size])
 
 
-def animate_packets(circles, screen):
+def animate_packets(circles, screen, pc, pc_rect):
     """
     Animates circles moving left to right, with radius based on number values.
 
@@ -40,8 +33,6 @@ def animate_packets(circles, screen):
     """
 
     screen.fill(BLACK)
-    pygame.draw.line(screen, WHITE, (DOOR_X + DOOR_WIDTH, DOOR_Y),
-                     (DOOR_X + DOOR_WIDTH, DOOR_Y + DOOR_HEIGHT), DOOR_THICKNESS)
 
     out_of_bounds = deque()
     for i, circle in enumerate(circles):
@@ -54,12 +45,7 @@ def animate_packets(circles, screen):
         if x > WIDTH + radius:
             out_of_bounds.appendleft(i)
 
-    pygame.draw.line(screen, WHITE, (DOOR_X, DOOR_Y),
-                     (DOOR_X, DOOR_Y + DOOR_HEIGHT), DOOR_THICKNESS)
-    pygame.draw.line(screen, WHITE, (DOOR_X, DOOR_Y),
-                     (DOOR_X + DOOR_WIDTH, DOOR_Y), DOOR_THICKNESS)
-    pygame.draw.line(screen, WHITE, (DOOR_X, DOOR_Y + DOOR_HEIGHT),
-                     (DOOR_X + DOOR_WIDTH, DOOR_Y + DOOR_HEIGHT), DOOR_THICKNESS)
+    screen.blit(pc, pc_rect)
 
     for i in out_of_bounds:
         del circles[i]
